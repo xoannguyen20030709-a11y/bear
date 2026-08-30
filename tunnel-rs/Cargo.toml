@@ -1,0 +1,31 @@
+[package]
+name = "tunnel-rs"
+version = "0.1.0"
+authors = ["tunnel-rs contributors"]
+edition = "2021"
+description = "A lightweight TCP tunnel that forwards local ports to a remote server."
+repository = "https://github.com/example/tunnel-rs"
+keywords = ["network", "tunnel", "tcp", "proxy"]
+categories = ["network-programming", "command-line-utilities"]
+readme = "README.md"
+license = "MIT"
+
+[[bin]]
+name = "tunnel"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.0", features = ["derive", "env"] }
+dashmap = "5.2"
+futures-util = { version = "0.3", features = ["sink"] }
+hex = "0.4"
+hmac = "0.12"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.10"
+tokio = { version = "1.0", features = ["rt-multi-thread", "io-util", "macros", "net", "time"] }
+tokio-util = { version = "0.7", features = ["codec"] }
+tracing = "0.1"
+tracing-subscriber = "0.3"
+uuid = { version = "1.0", features = ["serde", "v4"] }
