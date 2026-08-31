@@ -6,7 +6,7 @@ use colored::*;
 use fastrand::Rng;
 use std::collections::HashMap;
 use std::sync::Arc;
-use tokio::io::AsyncWriteExt;
+use tokio::io::{AsyncBufReadExt, AsyncReadExt, AsyncWriteExt, BufStream};
 use tokio::net::{TcpListener, TcpStream};
 use tokio::sync::RwLock;
 use tracing::{info, warn, error};
@@ -46,7 +46,7 @@ pub async fn run(args: ServerArgs) -> Result<()> {
     println!();
     println!("🌐 Listening on: {}:{}", args.bind, args.port);
     println!("🔌 Tunnel ports: {} - {}", args.min_port, args.max_port);
-    if let Some(ref s) = args.secret {
+    if let Some(ref _s) = args.secret {
         println!("🔐 Authentication: enabled (secret configured)");
     } else {
         println!("🔓 Authentication: disabled");

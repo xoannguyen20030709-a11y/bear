@@ -4,7 +4,7 @@ use anyhow::Result;
 use clap::Args;
 use colored::*;
 use std::time::Duration;
-use tokio::io::AsyncWriteExt;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 use tracing::{info, warn};
 
@@ -30,7 +30,7 @@ pub async fn run(args: ClientArgs) -> Result<()> {
     println!("{}", "🔌 Connecting to Bear Server...".cyan().bold());
     println!();
     println!("📍 Server: {}", to);
-    if let Some(ref s) = secret {
+    if let Some(ref _s) = secret {
         println!("🔐 Authentication: enabled");
     } else {
         println!("🔓 Authentication: disabled");
@@ -52,7 +52,7 @@ pub async fn run(args: ClientArgs) -> Result<()> {
         tokio::spawn(async move {
             match connect_and_forward(local_stream, &host, port, secret).await {
                 Ok(_) => (),
-                Err(e) => warn!("Connection error: {}", e),
+                Err(e) => warn!("Connection error: {}", e error: {}", e),
             }
         });
     }
@@ -69,7 +69,7 @@ async fn connect_and_forward(
         TcpStream::connect((host, port)),
     )
     .await
-    .map_err(|_| anyhow::anyhow!("Connection timeout to {}:{}", host, port))??;
+    .map_err(|_| anyhow::anyhow!("Connection timeout to {}:{}", host, port))?;
 
     // If secret is provided, do authentication handshake
     if let Some(secret_str) = secret {
