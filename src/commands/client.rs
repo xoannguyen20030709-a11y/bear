@@ -52,7 +52,7 @@ pub async fn run(args: ClientArgs) -> Result<()> {
         tokio::spawn(async move {
             match connect_and_forward(local_stream, &host, port, secret).await {
                 Ok(_) => (),
-                Err(e) => warn!("Connection error: {}", e error: {}", e),
+                Err(e) => warn!("Connection error: {}", e),
             }
         });
     }
